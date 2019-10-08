@@ -1,0 +1,152 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.7.21-log - MySQL Community Server (GPL)
+-- Server OS:                    Win32
+-- HeidiSQL Version:             9.5.0.5196
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- Dumping database structure for proba1
+CREATE DATABASE IF NOT EXISTS `proba1` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `proba1`;
+
+-- Dumping structure for table proba1.filmovi
+CREATE TABLE IF NOT EXISTS `filmovi` (
+  `FILM` varchar(50) NOT NULL,
+  `GLUMCI` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`FILM`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table proba1.filmovi: ~3 rows (approximately)
+DELETE FROM `filmovi`;
+/*!40000 ALTER TABLE `filmovi` DISABLE KEYS */;
+INSERT INTO `filmovi` (`FILM`, `GLUMCI`) VALUES
+	('JUTRO', 'Milena Dravic, Ljubisa Samardzic, Neda Arneric, Mija Alkesic'),
+	('SKUPLJACI PERJA', ' Bekim Fehmiju, Olivera Katarina, Mija Aleksic'),
+	('WR-MISTERIJA ORGANIZMA', 'Milena Dravic, Zoran Radmilovic');
+/*!40000 ALTER TABLE `filmovi` ENABLE KEYS */;
+
+-- Dumping structure for table proba1.filmoviopis
+CREATE TABLE IF NOT EXISTS `filmoviopis` (
+  `FILM` varchar(50) NOT NULL,
+  `SCENARISTA` varchar(30) NOT NULL,
+  `REDITELJ` varchar(30) NOT NULL,
+  `SINOSPSIS` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`SCENARISTA`),
+  KEY `FILM` (`FILM`),
+  KEY `SCENARISTA` (`SCENARISTA`),
+  KEY `REDITELJ` (`REDITELJ`),
+  CONSTRAINT `FK_filmoviopis_filmovi` FOREIGN KEY (`FILM`) REFERENCES `filmovi` (`FILM`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table proba1.filmoviopis: ~3 rows (approximately)
+DELETE FROM `filmoviopis`;
+/*!40000 ALTER TABLE `filmoviopis` DISABLE KEYS */;
+INSERT INTO `filmoviopis` (`FILM`, `SCENARISTA`, `REDITELJ`, `SINOSPSIS`) VALUES
+	('SKUPLJACI PERJA', 'Aleksandar Petrovic', 'Aleksandar Petrovic', 'Skupljači perja je jugoslovenski film režisera \r\nAleksandra Saše Petrovića snimljen 1967. godine. Radnja filma se bazira na životu Roma u jednom selu na sjeveru \r\nVojvodine, ali film se bavi daleko složenijim temama poput ljubavi, međuetničkih i socijalnih odnosa. Glavne uloge \r\ntumače Bekim Fehmiu, Olivera Vučo i Velimir Bata Živojinović. „Skupljači perja“ se smatra za jedan od najznačajnijih \r\nfilmova crnog talasa i jugoslovenske kinematografije uopšte.'),
+	('WR-MISTERIJA ORGANIZMA', 'Dusan Makavejev', 'Dusan Makavejev', 'W.R. Misterije organizma je \r\njugoslovensko-zapadnonemački igrano-dokumentarni film, snimljen 1971.. godine u režiji Dušana Makavejeva, \r\ninspiriran životom i djelom psihijatra Vilhelma Rajha, odnosno proučavanju veze komunističke politike i seksualnosti.\r\n Zbog svog "problematičnog" tretmana komunističke ideologije je nedugo nakon premijere završio u "bunkeru", a na \r\n jugoslavenskoj televiziji prikazan tek kasnih 1980-ih.filmovi'),
+	('JUTRO', 'Purisa Djordjevic', 'Purisa Djordjevic', 'Jutro je jugoslovenski crno-beli igrani film iz snimljen 1967. godine \r\nu režiji Puriše Đorđevića. Navodi se kao treći iz ciklusa Đorđevićevih filmova posvećenih Drugom svetskom ratu i prvim \r\ngodinama tadašnje države, a u kojima su se rušili tabui i u pitanje dovodila službena ideologija tadašnjeg režima, \r\nodnosno jedno od ostvarenja tzv. crnog talasa. Prikazan je na venecijanskoj Mostri gde je Ljubiša Samardžić osvojio \r\nKup Volpi za najboljeg glumca.');
+/*!40000 ALTER TABLE `filmoviopis` ENABLE KEYS */;
+
+-- Dumping structure for table proba1.glumci
+CREATE TABLE IF NOT EXISTS `glumci` (
+  `GLUMAC` varchar(50) NOT NULL,
+  `FILMOVI` varchar(300) DEFAULT NULL,
+  `BIOGRAFIJA` varchar(1000) DEFAULT NULL,
+  `NAGRADE` varchar(1000) DEFAULT NULL,
+  `SLIKE` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`GLUMAC`),
+  KEY `FILMOVI` (`FILMOVI`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table proba1.glumci: ~3 rows (approximately)
+DELETE FROM `glumci`;
+/*!40000 ALTER TABLE `glumci` DISABLE KEYS */;
+INSERT INTO `glumci` (`GLUMAC`, `FILMOVI`, `BIOGRAFIJA`, `NAGRADE`, `SLIKE`) VALUES
+	('BEKIR FEHMIU', 'Neprijatelj, Roj, Skupljaci perja', 'Bekim Fehmiu se pojavio u 41 filmu snimljenom od 1953. do 1998. godine. \r\nOn je prvi kosovski Albanac koji je bio pozorišni i filmski glumac, koji je nastupao i snimao širom bivše zajedničke \r\ndržave. Imao je niz uloga koje su promijenile historiju kinematografije Jugoslavije i ostavio je trag svojim \r\nsnimanjima u inostranstvu.Njegove uloge su zapažene u filmovima: Specijalno vaspitanje, Skupljači perja, The Odyssey \r\npoznat kao The Adventures of Ulysses, Black Sunday, Hot years, The Deserter i Roj.Nakon uloge odigrane na romskom \r\njeziku u filmu Skupljači perja, bio je veoma tražen od strane stranih režisera, uključujući i američke', ' ', NULL),
+	('MIJA ALEKSIC', 'Uzicka republika, Roj, Skupljaci perja', 'Rođen je 1923. godine u selu Gornja Crnuća, kod Gornjeg \r\nMilanovca. U oktobru 1941. godine, kada je nemačka vojska preduzela masovno streljanje stanovništva u Kragujevcu, \r\npobegao je spasavajući goli život. Po završenoj gimnaziji u Kragujevcu upisao je prava.Glumom se amaterski bavio još \r\nod gimnazijskih dana. Od oslobođenja, pa do 1948. godine bio je član Narodnog pozorišta u Kragujevcu.Bio je član \r\nJugoslovenskog dramskog i Narodnog pozorišta u Beogradu. Član Jugoslovenskog dramskog pozorišta postaje 1951. i\r\n radi sve do 1965. godine, kada je prešao u Narodno Pozorište gde je i okončao svoju pozorišnu karijeru.Igrao je \r\n i u Ateljeu 212 i drugim scenama. Od 1977. godine imao je status slobodnog umetnika.Sahranjen je u Aleji zaslužnih \r\n građana na Novom groblju u Beogradu.', 'Oktobarska nagrada grada Beograda 1961.Zlatna arena filmskog festivala u Puli 1962. i\r\nSedmojulska nagrada 1976.Dobričin prsten 1982.1985 dobitnik Statuete Joakim Vujić koju Knjaževsko-srpski teatar dodeljuje svake godine, na Sretenje, 15. februara.\r\nZa svoja pozorišna ostvarenja nagrađen Sterijinom nagradom za životno delo i mnogim drugim značajnim priznanjima. ', NULL),
+	('MILENA DRAVIC', 'Jutro, Horoskop, Una', 'Na film je došla slučajno - plavokosu, pegavu srednjoškolku s konjskim repom \r\nzapazio je na naslovnoj strani neke ilustrovan revije reditelj F. Čap i dao joj ulogu u svom filmu Vrata ostaju \r\notvorena (1959). Svojim šarmom i spontanošću nametnula se, pa ubrzo snima Diližansu snova (Soja Jovanović, 1960), \r\nZajednički stan (M. Vajda, 1960), Bolje je umeti (V. Nanović, 1961), Uzavreli grad (Veljko Bulajić, 1961) i \r\nLeto je krivo za sve (Puriša Đorđević, 1961).', 'Nagrada “Ćuran” za ulogu u predstavi “Ptic i ptica” na festivalu\r\n Dani komedije, u Jagodini,Nagrada “Ćuran” za ulogu u predstavi “Ćelava pevačica” na festivalu “Dani komedije” u \r\n Jagodini’Nagrada “Žanka Stokić” koja se dodeljuje za celokupni životni umetnički opus i doprinos.\r\nZa ulogu u filmu “Prekobrojna” Branka Bauera, dobija nagradu “Zlatna arena” na tada najprestižnijem filmskom festivalu u Puli,\r\nZa ulogu u filmu “Jutro” u Veneciji dobija nagradu “Zlatna ruža”,Za ulogu u koprodukcionom filmu češke i američke produkcije “Voda nešto nosi”, čuvenog pisca Lajoša Zilahija, a u režiji oskarevaca Jan Kadara i Elmara Klosa, dobija evropsku nagradu “Zlatni David”, kao najbolja evropska glumica 1978. godine.\r\nZa film “Poseban tretman” Gorana Paskaljevića i Dušana Kovačevića dobija Kansku nagradu 1980. godine\r\nNagrada Pavle Vujisić za ukupan rad na filmu, na Filmskim susretima u Nišu, 1994.', NULL);
+/*!40000 ALTER TABLE `glumci` ENABLE KEYS */;
+
+-- Dumping structure for table proba1.komentari
+CREATE TABLE IF NOT EXISTS `komentari` (
+  `KORISNICKO_IME` varchar(20) NOT NULL,
+  `KOMENTAR` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`KORISNICKO_IME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table proba1.komentari: ~0 rows (approximately)
+DELETE FROM `komentari`;
+/*!40000 ALTER TABLE `komentari` DISABLE KEYS */;
+/*!40000 ALTER TABLE `komentari` ENABLE KEYS */;
+
+-- Dumping structure for table proba1.korisnici
+CREATE TABLE IF NOT EXISTS `korisnici` (
+  `KORISNICKO_IME` varchar(20) NOT NULL,
+  `SIFRA` varchar(20) DEFAULT NULL,
+  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`KORISNICKO_IME`),
+  UNIQUE KEY `ID` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table proba1.korisnici: ~0 rows (approximately)
+DELETE FROM `korisnici`;
+/*!40000 ALTER TABLE `korisnici` DISABLE KEYS */;
+/*!40000 ALTER TABLE `korisnici` ENABLE KEYS */;
+
+-- Dumping structure for table proba1.meni
+CREATE TABLE IF NOT EXISTS `meni` (
+  `filmovi` varchar(50) DEFAULT NULL,
+  `glumci` varchar(50) DEFAULT NULL,
+  `istorijat` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table proba1.meni: ~0 rows (approximately)
+DELETE FROM `meni`;
+/*!40000 ALTER TABLE `meni` DISABLE KEYS */;
+/*!40000 ALTER TABLE `meni` ENABLE KEYS */;
+
+-- Dumping structure for table proba1.reditelji
+CREATE TABLE IF NOT EXISTS `reditelji` (
+  `REDITELJ` varchar(50) NOT NULL,
+  `FILMOVI` varchar(300) DEFAULT NULL,
+  `BIOGRAFIJA` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`REDITELJ`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table proba1.reditelji: ~3 rows (approximately)
+DELETE FROM `reditelji`;
+/*!40000 ALTER TABLE `reditelji` DISABLE KEYS */;
+INSERT INTO `reditelji` (`REDITELJ`, `FILMOVI`, `BIOGRAFIJA`) VALUES
+	('ALEKSANDAR PETROVIC', 'Seobe, Maajstor i Margarita, Skupljaci perja, bice skoro propast sveta', 'Aleksandar Saša \r\nPetrović je rođen u Parizu 1929. godine. Studije režije je započeo 1947 godine na FAMU, čuvenoj filmskoj akademiji \r\nu Pragu. Diplomirao je 1955. godine na Beogradskom univerzitetu istoriju umetnosti. 1957. po sopstvenom scenariju \r\nrežira svoj prvi dokumentarni film Let nad močvarom. Prvo pretstavljanje jugoslovenskog filma u Kanu. Nastavlja rad \r\nna filmu snimajuci dokumentarne filmove. Od 1949. objavio je na stotinu eseja, kritika o filmu i umetnosti i drugih \r\ntekstova u nacionalnoj i svetskoj štampi. Dvoje (1961) je prvi autorski dugometražni film Aleksandra Petrovića koji \r\nobeležava početak modernog jugoslovenskog filma. Prikazan je na festivalu u Kanu.'),
+	('DUSAN MAKAVEJEV', 'Covek nije tica, WR-Misterija organizma, Manifesto', 'Rođen je 13. oktobra 1932. u Beogradu.\r\nDiplomirao je psihologiju na Filozofskom fakultetu u Beogradu.Jedan od osnivača filmskog crnog talasa. Svojim delima \r\nkritikuje trulo društvo, kako komunističko, tako i kapitalističko. Njegovi filmovi nose čulnost i mladost. Obiluju \r\nasocijacijama i metaforama, koje ostvaruju naizgled površno dejstvo, ali donose istinitost i slobodan duh. Kao \r\npristalica i veliki poznavalac dela psihologa Vilhelma Rajha, često njegova učenja komponuje u svoje filmove. \r\nNjegov film Misterije organizma (1971.) u stvari je posveta ovom nikad dovoljno priznatom revolucionaru-psihologu.'),
+	('PURISA DJERODJEVIC', 'Devojka, San, Jutro, Podne, Kisa', 'Rođen je na Đurđevdan 1924. godine.Pre Drugog svetskog rata \r\nbio je član SKOJ-a. Na početku ustanka u Srbiji stupio je u partizane. Zarobljen je i upućen u Zavod za prinudno \r\nvaspitanje omladine u Smederevskoj Palanci. Kao mladić je 1946. igrao za čačanski Borac.Kao novinar počeo je rad u\r\n „Politici“ 1946. godine.[2] Od 1947. je radio na Filmskim novostima kao urednik, a kasnije kao režiser dokumentarnih \r\n filmova. Snimio je oko 50 kratkih i 20 dugometražnih filmova. Autor je deset romana. Kao glumac je nastupao u \r\n filmu Jug jugoistok (2005)..');
+/*!40000 ALTER TABLE `reditelji` ENABLE KEYS */;
+
+-- Dumping structure for table proba1.scenaristi
+CREATE TABLE IF NOT EXISTS `scenaristi` (
+  `SCENARISTA` varchar(50) NOT NULL,
+  `FILMOVI` varchar(300) DEFAULT NULL,
+  `BIOGRAFIJA` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`SCENARISTA`),
+  CONSTRAINT `FK_scenaristi_filmoviopis` FOREIGN KEY (`SCENARISTA`) REFERENCES `filmoviopis` (`SCENARISTA`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table proba1.scenaristi: ~3 rows (approximately)
+DELETE FROM `scenaristi`;
+/*!40000 ALTER TABLE `scenaristi` DISABLE KEYS */;
+INSERT INTO `scenaristi` (`SCENARISTA`, `FILMOVI`, `BIOGRAFIJA`) VALUES
+	('ALEKSANDAR PETROVIC', 'Dvoje, Skupljaci perja, Tri', 'Aleksandar Saša Petrović je rođen u Parizu 1929. godine. \r\nStudije režije je započeo 1947 godine na FAMU, čuvenoj filmskoj akademiji u Pragu. Diplomirao je 1955. godine na \r\nBeogradskom univerzitetu istoriju umetnosti. 1957. po sopstvenom scenariju režira svoj prvi dokumentarni film Let \r\nnad močvarom. Prvo pretstavljanje jugoslovenskog filma u Kanu. Nastavlja rad na filmu snimajuci dokumentarne filmove.\r\n Od 1949. objavio je na stotinu eseja, kritika o filmu i umetnosti i drugih tekstova u nacionalnoj i svetskoj štampi. \r\n Dvoje (1961) je prvi autorski dugometražni film Aleksandra Petrovića koji obeležava početak modernog jugoslovenskog \r\n filma. Prikazan je na festivalu u Kanu.'),
+	('DUSAN MAKAVEJEV', 'WR-Misterija organizma, Manifesto, Ljubavni slucaj ili tragedija sluzbenice PTT', 'Rođen je \r\n13. oktobra 1932. u Beogradu.Diplomirao je psihologiju na Filozofskom fakultetu u Beogradu.Jedan od osnivača \r\nfilmskog crnog talasa. Svojim delima kritikuje trulo društvo, kako komunističko, tako i kapitalističko. Njegovi \r\nfilmovi nose čulnost i mladost. Obiluju asocijacijama i metaforama, koje ostvaruju naizgled površno dejstvo, ali\r\n donose istinitost i slobodan duh. Kao pristalica i veliki poznavalac dela psihologa Vilhelma Rajha, često njegova \r\n učenja komponuje u svoje filmove. Njegov film Misterije organizma (1971.) u stvari je posveta ovom nikad dovoljno \r\n priznatom revolucionaru-psihologu.'),
+	('PURISA DJORDJEVIC', 'Devojka, San, Jutro, Podne, Kisa', 'Rođen je na Đurđevdan 1924. godine.Pre Drugog svetskog rata \r\nbio je član SKOJ-a. Na početku ustanka u Srbiji stupio je u partizane. Zarobljen je i upućen u Zavod za prinudno \r\nvaspitanje omladine u Smederevskoj Palanci. Kao mladić je 1946. igrao za čačanski Borac.Kao novinar počeo je rad u\r\n „Politici“ 1946. godine.[2] Od 1947. je radio na Filmskim novostima kao urednik, a kasnije kao režiser dokumentarnih \r\n filmova. Snimio je oko 50 kratkih i 20 dugometražnih filmova. Autor je deset romana. Kao glumac je nastupao u \r\n filmu Jug jugoistok (2005)..');
+/*!40000 ALTER TABLE `scenaristi` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
